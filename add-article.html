@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article Builder — The Warsaw Highschool Financial Times</title>
+<meta name="description" content="Fill out a form, get ready-to-paste article code for warsawfintimes.html.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23141414'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' fill='%23fcfcfa' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #58585a;
+    --ink-faint: #86868a;
+    --paper: #fcfcfa;
+    --card: #ffffff;
+    --accent: #8a1f13;
+    --up: #1a7a3c;
+    --hairline: #dcdcd7;
+    --hairline-heavy: #141414;
+    --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --measure: 68ch;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); }
+
+  .tool-header { max-width: 900px; margin: 0 auto; padding: 2.2rem 1.5rem 1.4rem; border-bottom: 3px solid var(--hairline-heavy); }
+  .tool-kicker { font-family: var(--font-ui); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.4rem; }
+  .tool-header h1 { font-family: var(--font-body); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+  .tool-header p { font-family: var(--font-body); font-style: italic; color: var(--ink-soft); margin: 0; font-size: 1rem; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  .steps { border: 1px solid var(--hairline); padding: 1.3rem 1.5rem; margin-bottom: 2.4rem; background: var(--card); }
+  .steps h2 { font-family: var(--font-ui); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.8rem; }
+  .steps ol { margin: 0; padding-left: 1.2rem; font-family: var(--font-ui); font-size: 0.92rem; line-height: 1.7; color: var(--ink); }
+  .steps code { background: #efefec; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.85em; }
+
+  section.card { border: 1px solid var(--hairline); padding: 1.6rem 1.7rem; margin-bottom: 2rem; background: var(--card); }
+  section.card > h2 { font-family: var(--font-body); font-weight: 700; font-size: 1.3rem; margin: 0 0 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--hairline); }
+
+  form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+  label.field-label { font-family: var(--font-ui); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-soft); }
+  .hint { font-family: var(--font-ui); font-size: 0.76rem; color: var(--ink-faint); margin-top: -0.2rem; }
+  input[type="text"], input[type="date"], input[type="url"], select, textarea {
+    font-family: var(--font-ui); font-size: 0.95rem; padding: 0.65rem 0.75rem;
+    border: 1px solid var(--hairline); border-radius: 2px; background: var(--paper); color: var(--ink); resize: vertical;
+    width: 100%;
+  }
+  textarea { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; border-color: var(--accent); }
+  .checkbox-field { flex-direction: row; align-items: center; gap: 0.6rem; }
+  .checkbox-field input { width: auto; }
+
+  .btn { align-self: flex-start; font-family: var(--font-ui); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; background: var(--ink); color: #fff; border: none; padding: 0.8rem 1.7rem; border-radius: 2px; cursor: pointer; }
+  .btn:hover { background: var(--accent); }
+  .btn-secondary { background: var(--paper); color: var(--ink); border: 1px solid var(--hairline-heavy); }
+  .btn-secondary:hover { background: var(--ink); color: #fff; }
+
+  #output { display: none; }
+  #output.is-visible { display: block; }
+  #codeOutput { width: 100%; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 0.82rem; line-height: 1.55; padding: 1rem; border: 1px solid var(--hairline-heavy); background: #141414; color: #f4f1e8; border-radius: 2px; white-space: pre; }
+  .output-actions { display: flex; align-items: center; gap: 1rem; margin-top: 0.9rem; }
+  #copyStatus { font-family: var(--font-ui); font-size: 0.82rem; color: var(--up); font-weight: 600; opacity: 0; transition: opacity 0.2s; }
+  #copyStatus.is-visible { opacity: 1; }
+
+  .preview-box { border: 1px solid var(--hairline); padding: 1.6rem 1.8rem; margin-top: 1rem; }
+  .article-kicker { font-family: var(--font-ui); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin: 0 0 0.7rem; }
+  .article-title { font-family: var(--font-body); font-weight: 700; font-size: clamp(1.5rem, 3.6vw, 2rem); line-height: 1.2; margin: 0 0 0.8rem; letter-spacing: -0.01em; }
+  .article-dek { font-family: var(--font-body); font-style: italic; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.5; margin: 0 0 1.2rem; max-width: var(--measure); }
+  .article-hero { width: 100%; max-width: var(--measure); aspect-ratio: 16 / 9; object-fit: cover; margin: 0 0 1.2rem; background: var(--hairline); }
+  .article-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: center; color: var(--ink-faint); font-family: var(--font-ui); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 1.5rem; padding: 0.9rem 0; border-top: 1px solid var(--hairline-heavy); border-bottom: 1px solid var(--hairline); }
+  .article-byline { font-weight: 700; color: var(--ink); }
+  .article-body { font-size: 1.05rem; line-height: 1.7; max-width: var(--measure); }
+  .article-body p { margin: 0 0 1.1rem; }
+  .pull-quote { font-family: var(--font-body); font-style: italic; font-weight: 600; font-size: 1.3rem; line-height: 1.4; color: var(--ink); margin: 1.5rem 0; padding: 0.1rem 0 0.1rem 1.2rem; border-left: 4px solid var(--accent); }
+
+  .tool-footer { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 3rem; border-top: 1px solid var(--hairline); color: var(--ink-faint); font-family: var(--font-ui); font-size: 0.78rem; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header class="tool-header">
+  <p class="tool-kicker">Internal Tool — Not Part of the Public Site</p>
+  <h1>Article Builder</h1>
+  <p>Fill this out to generate ready-to-paste code for <strong>warsawfintimes.html</strong> — no hand-typing JavaScript required.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="steps">
+    <h2>How this works</h2>
+    <ol>
+      <li>Fill out the form below (only the fields marked * are required).</li>
+      <li>Click <strong>Generate Code</strong> — a code block and a live preview will appear underneath.</li>
+      <li>Click <strong>Copy to Clipboard</strong>.</li>
+      <li>Open <code>warsawfintimes.html</code> in a text editor, find the line that says
+        <code>// ⬆ New articles always go directly ABOVE this comment line</code> inside the
+        <code>ARTICLES</code> list near the bottom, and paste directly above it.</li>
+      <li>Save the file and refresh your browser (or re-upload the file if the site is hosted online). That's it — no rebuild step, nothing else to run.</li>
+    </ol>
+  </div>
+
+  <section class="card">
+    <h2>Article details</h2>
+    <form id="articleForm">
+      <div class="field">
+        <label class="field-label" for="f-title">Title *</label>
+        <input type="text" id="f-title" required placeholder="Why the Cafeteria Vending Machine Is a Lesson in Inflation">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="f-category">Category *</label>
+          <select id="f-category" required></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-date">Publish date *</label>
+          <input type="date" id="f-date" required>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="f-author">Byline (author)</label>
+          <input type="text" id="f-author" placeholder="Defaults to “The Editorial Team”">
+        </div>
+        <div class="field checkbox-field" style="align-self: end;">
+          <input type="checkbox" id="f-trending">
+          <label class="field-label" for="f-trending" style="text-transform:none;font-weight:500;">Feature in "Editor's Picks" on the homepage</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-summary">Summary / dek *</label>
+        <textarea id="f-summary" rows="2" required placeholder="One or two sentences that hook the reader — shown on cards and under the headline."></textarea>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-pullquote">Pull quote (optional)</label>
+        <textarea id="f-pullquote" rows="2" placeholder="A short standout line, styled like a magazine callout after the first paragraph."></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="f-image">Hero image URL (optional)</label>
+          <input type="url" id="f-image" placeholder="Paste a Pexels image link here">
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-imagealt">Image alt text (optional)</label>
+          <input type="text" id="f-imagealt" placeholder="Briefly describe the image">
+        </div>
+      </div>
+      <p class="hint">Leave the image field blank for now if you don't have one yet — you can always regenerate this article later once you do.</p>
+
+      <div class="field">
+        <label class="field-label" for="f-body">Body *</label>
+        <textarea id="f-body" rows="12" required placeholder="Write your article here. Leave a blank line between paragraphs — each one becomes its own paragraph on the page."></textarea>
+      </div>
+
+      <button type="button" class="btn" id="generateBtn">Generate Code</button>
+    </form>
+  </section>
+
+  <section class="card" id="output">
+    <h2>Paste this into warsawfintimes.html</h2>
+    <textarea id="codeOutput" readonly rows="16"></textarea>
+    <div class="output-actions">
+      <button type="button" class="btn btn-secondary" id="copyBtn">Copy to Clipboard</button>
+      <span id="copyStatus">Copied!</span>
+    </div>
+
+    <h2 style="margin-top: 2.2rem;">Live preview</h2>
+    <div class="preview-box">
+      <p class="article-kicker" id="pv-kicker"></p>
+      <h1 class="article-title" id="pv-title"></h1>
+      <p class="article-dek" id="pv-dek"></p>
+      <img class="article-hero hidden" id="pv-hero" alt="">
+      <div class="article-meta">
+        <span class="article-byline" id="pv-byline"></span>
+        <span aria-hidden="true">&middot;</span>
+        <span id="pv-date"></span>
+      </div>
+      <div class="article-body" id="pv-body"></div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="tool-footer">
+  <p>This page never sends your writing anywhere — everything happens in your browser, and nothing is saved unless you paste it into the site file yourself.</p>
+</footer>
+
+<script>
+  const CATEGORIES = [
+    "Markets",
+    "Personal Finance & Investment",
+    "Macroeconomics",
+    "Polish Economy",
+    "Global Trade & Geopolitics",
+    "Behavioral Economics"
+  ];
+
+  const categorySelect = document.getElementById('f-category');
+  categorySelect.innerHTML = CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
+  document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function jsStr(str) {
+    return JSON.stringify(str);
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso + "T00:00:00");
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function splitParagraphs(raw) {
+    return raw
+      .split(/\n\s*\n/)
+      .map(p => p.replace(/\s+/g, ' ').trim())
+      .filter(Boolean);
+  }
+
+  document.getElementById('generateBtn').addEventListener('click', () => {
+    const title = document.getElementById('f-title').value.trim();
+    const category = categorySelect.value;
+    const date = document.getElementById('f-date').value;
+    const author = document.getElementById('f-author').value.trim();
+    const summary = document.getElementById('f-summary').value.trim();
+    const pullQuote = document.getElementById('f-pullquote').value.trim();
+    const trending = document.getElementById('f-trending').checked;
+    const image = document.getElementById('f-image').value.trim();
+    const imageAlt = document.getElementById('f-imagealt').value.trim();
+    const paragraphs = splitParagraphs(document.getElementById('f-body').value);
+
+    if (!title || !category || !date || !summary || paragraphs.length === 0) {
+      alert("Please fill in the title, category, date, summary, and body before generating code.");
+      return;
+    }
+
+    const lines = [];
+    lines.push('    {');
+    lines.push('      title: ' + jsStr(title) + ',');
+    lines.push('      category: ' + jsStr(category) + ',');
+    lines.push('      date: ' + jsStr(date) + ',');
+    if (author) lines.push('      author: ' + jsStr(author) + ',');
+    lines.push('      summary: ' + jsStr(summary) + ',');
+    if (pullQuote) lines.push('      pullQuote: ' + jsStr(pullQuote) + ',');
+    if (trending) lines.push('      trending: true,');
+    if (image) lines.push('      image: ' + jsStr(image) + ',');
+    if (imageAlt) lines.push('      imageAlt: ' + jsStr(imageAlt) + ',');
+    lines.push('      body: [');
+    paragraphs.forEach((p, i) => {
+      lines.push('        ' + jsStr(p) + (i < paragraphs.length - 1 ? ',' : ''));
+    });
+    lines.push('      ]');
+    lines.push('    },');
+
+    document.getElementById('codeOutput').value = lines.join('\n');
+
+    // ---- live preview ----
+    document.getElementById('pv-kicker').textContent = category;
+    document.getElementById('pv-title').textContent = title;
+    document.getElementById('pv-dek').textContent = summary;
+    document.getElementById('pv-byline').textContent = "By " + (author || "The Editorial Team");
+    document.getElementById('pv-date').textContent = formatDate(date);
+
+    const hero = document.getElementById('pv-hero');
+    if (image) {
+      hero.src = image;
+      hero.alt = imageAlt || title;
+      hero.classList.remove('hidden');
+    } else {
+      hero.classList.add('hidden');
+      hero.removeAttribute('src');
+    }
+
+    document.getElementById('pv-body').innerHTML = paragraphs.map((p, i) => {
+      let out = `<p>${escapeHtml(p)}</p>`;
+      if (i === 0 && pullQuote) out += `<blockquote class="pull-quote">${escapeHtml(pullQuote)}</blockquote>`;
+      return out;
+    }).join('');
+
+    const output = document.getElementById('output');
+    output.classList.add('is-visible');
+    output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    const textarea = document.getElementById('codeOutput');
+    const status = document.getElementById('copyStatus');
+    try {
+      await navigator.clipboard.writeText(textarea.value);
+    } catch (err) {
+      textarea.select();
+      document.execCommand('copy');
+    }
+    status.classList.add('is-visible');
+    setTimeout(() => status.classList.remove('is-visible'), 1800);
+  });
+</script>
+
+</body>
+</html>
