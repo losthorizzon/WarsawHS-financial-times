@@ -357,7 +357,7 @@
   /* ---------- HOMEPAGE MODULES (Markets Snapshot / Editor's Picks) ---------- */
   .home-modules { display: grid; grid-template-columns: 1fr; gap: 1.6rem; margin-bottom: 2.6rem; }
   @media (min-width: 760px) { .home-modules { grid-template-columns: 1.35fr 1fr; } }
-  .module-box { border: 1px solid var(--hairline); background: var(--card); }
+  .module-box { border: 1px solid var(--hairline); background: var(--card); display: flex; flex-direction: column; }
   .module-head {
     display: flex; justify-content: space-between; align-items: baseline;
     padding: 0.85rem 1.1rem; background: var(--navy);
@@ -924,7 +924,7 @@
           <button class="link-more" onclick="showPage('markets')">Full Markets →</button>
         </div>
         <div class="snapshot-list" id="marketsSnapshot"></div>
-        <p class="markets-note" id="snapshotAsOf" style="padding: 0.6rem 1.1rem 0.8rem; margin: 0;"></p>
+        <p class="markets-note" id="snapshotAsOf" style="padding: 0.6rem 1.1rem 0.8rem; margin: auto 0 0;"></p>
       </div>
       <div class="module-box">
         <div class="module-head"><h2>Top of the Fold</h2></div>
