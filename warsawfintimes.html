@@ -1192,15 +1192,9 @@
               <input type="date" id="ea-date">
             </div>
           </div>
-          <div class="field-row">
-            <div class="field">
-              <label class="field-label" for="ea-author">Byline (author)</label>
-              <input type="text" id="ea-author" placeholder="Defaults to “The Editorial Team”">
-            </div>
-            <div class="field checkbox-field" style="align-self: end;">
-              <input type="checkbox" id="ea-trending">
-              <label class="field-label" for="ea-trending">Feature in "Top of the Fold"</label>
-            </div>
+          <div class="field">
+            <label class="field-label" for="ea-author">Byline (author)</label>
+            <input type="text" id="ea-author" placeholder="Defaults to “The Editorial Team”">
           </div>
           <div class="field">
             <label class="field-label" for="ea-summary">Summary / dek *</label>
@@ -1816,7 +1810,6 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
       category: document.getElementById('ea-category').value,
       date: document.getElementById('ea-date').value,
       author: document.getElementById('ea-author').value,
-      trending: document.getElementById('ea-trending').checked,
       summary: document.getElementById('ea-summary').value,
       pullQuote: document.getElementById('ea-pullquote').value,
       imageAlt: document.getElementById('ea-imagealt').value,
@@ -1857,7 +1850,6 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
       document.getElementById('ea-category').value = saved.category || '';
       document.getElementById('ea-date').value = saved.date || '';
       document.getElementById('ea-author').value = saved.author || '';
-      document.getElementById('ea-trending').checked = !!saved.trending;
       document.getElementById('ea-summary').value = saved.summary || '';
       document.getElementById('ea-pullquote').value = saved.pullQuote || '';
       document.getElementById('ea-imagealt').value = saved.imageAlt || '';
@@ -2167,12 +2159,16 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
     renderFeaturedChart(featuredSymbol || MARKET_DATA[0].symbol);
   }
 
+  // Always the 3 most recently dated published articles, so a new
+  // article automatically bumps the oldest one out — no manual
+  // "feature this" step to remember. (This used to key off a per-article
+  // "trending" flag, filtered in array order rather than by date, which
+  // meant a new article never displaced an older one already flagged
+  // unless that flag was manually cleared first.)
   function renderEditorsPicks() {
     const wrap = document.getElementById('editorsPicks');
     const published = ARTICLES.filter(a => a.status !== 'draft');
-    let picks = published.filter(a => a.trending);
-    if (picks.length === 0) picks = [...published].sort((a, b) => b.date.localeCompare(a.date));
-    picks = picks.slice(0, 3);
+    const picks = [...published].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
     wrap.innerHTML = picks.map(a => {
       const author = a.author || "The Editorial Team";
@@ -2676,7 +2672,6 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
     document.getElementById('ea-category').value = a.category;
     document.getElementById('ea-date').value = a.date;
     document.getElementById('ea-author').value = a.author || '';
-    document.getElementById('ea-trending').checked = !!a.trending;
     document.getElementById('ea-summary').value = a.summary;
     document.getElementById('ea-pullquote').value = a.pullQuote || '';
     document.getElementById('ea-imagealt').value = a.imageAlt || '';
@@ -2782,7 +2777,7 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
     renderReferencesInto('ep-referencesWrap', 'ep-referencesList', references);
   }
 
-  ['ea-title', 'ea-category', 'ea-author', 'ea-summary', 'ea-pullquote', 'ea-imagealt', 'ea-date', 'ea-body', 'ea-trending', 'ea-references']
+  ['ea-title', 'ea-category', 'ea-author', 'ea-summary', 'ea-pullquote', 'ea-imagealt', 'ea-date', 'ea-body', 'ea-references']
     .forEach(id => {
       const el = document.getElementById(id);
       el.addEventListener('input', updateArticlePreview);
@@ -3039,7 +3034,6 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
     const author = document.getElementById('ea-author').value.trim();
     const summary = document.getElementById('ea-summary').value.trim();
     const pullQuote = document.getElementById('ea-pullquote').value.trim();
-    const trending = document.getElementById('ea-trending').checked;
     const image = eaImageDataUrl;
     const imageAlt = document.getElementById('ea-imagealt').value.trim();
     const paragraphs = splitParagraphs(document.getElementById('ea-body').value);
@@ -3055,7 +3049,6 @@ https://en.wikipedia.org/wiki/Cost-push_inflation"></textarea>
     const articleData = { title, category, date, summary, body: paragraphs };
     if (author) articleData.author = author;
     if (pullQuote) articleData.pullQuote = pullQuote;
-    if (trending) articleData.trending = true;
     if (image) articleData.image = image;
     if (imageAlt) articleData.imageAlt = imageAlt;
     if (references.length > 0) articleData.references = references;
