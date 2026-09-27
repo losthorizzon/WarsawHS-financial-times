@@ -1803,6 +1803,23 @@
     return lines.join('\n');
   }
 
+  // Opens a mailto: link in its own tab/window instead of navigating the
+  // current one away from it. Plain `window.location.href = mailtoUrl`
+  // hands the whole tab off to the mail app (or, for anyone using a
+  // browser-based handler like Gmail's, replaces this tab with Gmail's
+  // compose screen) — a visitor then has to hunt for the way back to the
+  // site. A temporary target="_blank" link keeps this tab exactly where
+  // it was.
+  function openMailto(url) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
   function wireCopyForm(form, button) {
     const statusEl = document.createElement('p');
     statusEl.className = 'form-status';
@@ -1820,9 +1837,9 @@
       const mailtoUrl = 'mailto:' + FORM_RECIPIENT
         + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(messageBodyFor(form));
-      window.location.href = mailtoUrl;
+      openMailto(mailtoUrl);
       statusEl.className = 'form-status is-success';
-      statusEl.textContent = "Opening your email app with this filled in — just hit send there. If nothing opens, email us directly at " + FORM_RECIPIENT + '.';
+      statusEl.textContent = "Opening your email app in a new tab with this filled in — just hit send there. If nothing opens, email us directly at " + FORM_RECIPIENT + '.';
       form.reset();
     });
   }
