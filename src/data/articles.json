@@ -1,0 +1,154 @@
+[
+  {
+    "title": "Wall Street’s Rough Week: Market overview Sept 7 – Sept 11.",
+    "category": "Markets",
+    "date": "2026-09-13",
+    "summary": "Inflation remains sticky, while oil prices spike.",
+    "body": [
+      "It has been a very rough week for the stock market, with major ETFs such as SPY and VTI falling by -0.77% and -0.99%. The falls were mainly driven by escalating tensions in the war in Iran and inflation risks. Crude oil prices have surged to $100 per barrel from $92, with the energy sector benefiting from this with a 1.69% rise in XLE. Furthermore, escalating tensions have also affected the U.S. 10-year Treasury yield, reaching a high of 4.97%. Higher bond yields usually have negative impacts on the stock market due to a lower market risk premium.",
+      "However, there have also been some winners during this week, such as Marvell Technology(MRVL)[13.06%], Intel Corporation(INTC)[12.29%], and Advanced Micro Devices(AMD)[12.53%]. The main driver for MRVL’s surge was due to their recent Q2 report. There was a 36.5% increase in their Q2 revenue, alongside an increase in their EPS. MRVL have beaten the analyst estimates, and this has improved MRVL’s revenue forecasts, which have resulted in a better valuation for the company. Investment banks such as JPMorgan and Piper Sandler have given MRVL an overweight rating, meaning that they expect MRVL to perform better than the industry average. AMD and INTC also got a rating upgrade from KeyBanc. KeyBanc analysts report that both companies have sold out their expected 2026 capacity for server CPUs. However, the sudden rise might trigger investors to buy call options, and the expiration of these massive amounts of call options would trigger a short-term fall in stock prices."
+    ],
+    "author": "Hee-Chan Rho",
+    "pullQuote": "Higher bond yields usually have negative impacts on the stock market.",
+    "trending": true,
+    "image": "/images/articles/wall-streets-rough-week-market-overview-sept-7-sept-11.jpg",
+    "references": [
+      {
+        "label": "https://www.cnbc.com/quotes/US10Y",
+        "url": "https://www.cnbc.com/quotes/US10Y"
+      },
+      {
+        "label": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/mrvl-20260801.htm",
+        "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/mrvl-20260801.htm"
+      }
+    ]
+  },
+  {
+    "title": "Poland's Economic Pulse: September 2026",
+    "category": "Polish Economy",
+    "date": "2026-09-13",
+    "summary": "Poland’s growth accelerated to 3.9%, but rising inflation is putting pressure on the economy.",
+    "body": [
+      "Poland's economy continued to grow in the second quarter of 2026. Annual GDP growth increased from 3.5% in Q1 to 3.9% in Q2, showing that economic activity was expanding at a faster rate. Stronger GDP growth generally means that businesses are producing and selling more goods and services, which can lead to higher incomes, employment and consumer spending. However, the composition of this growth is also important: investment increased by 8.4% year-on-year, while household consumption slowed to 2.8%. This means that investment was a major driver of Poland's growth, while consumers contributed less than before.",
+      "However, inflation also increased. The annual inflation rate rose from 3.0% in July to 3.4% in August, mainly due to higher prices for fuels used in personal transport, which increased by 24.2%, as well as a 4.1% increase in electricity, gas and other fuels. Higher energy prices can affect the wider economy because businesses often rely on fuel and energy to produce and transport goods. When these costs rise, businesses may pass some of the increase on to consumers, contributing to further inflation. However, this was partly offset by a 0.9% decrease in food and non-alcoholic beverage prices.",
+      "Inflation is particularly important because it influences the decisions of the NBP (National Bank of Poland). At its meeting on 8–9 September, the Monetary Policy Council decided to keep interest rates unchanged, with the reference rate remaining at 3.75%. By keeping rates stable, the NBP is maintaining the current cost of borrowing rather than making loans either cheaper or more expensive. Higher interest rates can help reduce inflation by discouraging borrowing and spending, while lower rates can encourage spending and investment. The decision to keep rates unchanged suggests that the NBP is continuing to balance controlling inflation with supporting economic growth.",
+      "Interest rates can also influence the value of the Polish zloty. As of mid-September, according to the European Central Bank, the exchange rate stood at approximately €1 = PLN 4.325. Exchange rates affect both consumers and businesses: a weaker zloty makes imported goods more expensive, while a stronger zloty can make Polish exports more expensive for foreign buyers.",
+      "The labour market also remains an important part of the economy. The registered unemployment rate stood at 5.8% in July 2026. Unemployment affects consumer spending because people without work generally have less income available to spend. This means changes in employment can influence businesses and overall economic growth.",
+      "Overall, Poland entered September with stronger economic growth but rising inflation. The key challenge will be whether inflation can remain under control while the economy and labour market continue to grow."
+    ],
+    "author": "Keiden Yamamoto",
+    "pullQuote": "Poland entered September with stronger economic growth but rising inflation.",
+    "trending": true,
+    "image": "/images/articles/polands-economic-pulse-september-2026.jpg",
+    "references": [
+      {
+        "label": "CEO.com.pl. Poland GDP Growth Q2 2026: Investment and Consumption. 2026.",
+        "url": ""
+      },
+      {
+        "label": "Trading Economics. Poland Inflation Rate. 2026.",
+        "url": ""
+      },
+      {
+        "label": "National Bank of Poland. Statement of the Monetary Policy Council, September 2026. 2026.",
+        "url": ""
+      },
+      {
+        "label": "European Central Bank. Euro Foreign Exchange Reference Rates: Polish Zloty (PLN). 2026.",
+        "url": ""
+      },
+      {
+        "label": "CEO.com.pl. Poland Unemployment: July 2026 and Local/Regional Gaps. 2026.",
+        "url": ""
+      }
+    ]
+  },
+  {
+    "title": "Texas Instruments: The Steady Hand in Semiconductors",
+    "category": "Markets",
+    "date": "2026-09-27",
+    "summary": "A semiconductor stock for relative stability.",
+    "body": [
+      "What does Texas Instruments do?",
+      "Texas Instruments(TI) is a company that operates in the semiconductor sector. Its main source of income comes from manufacturing analog semiconductors and embedded processing semiconductors. In 2025, Analog products generated 79% of its total revenue, and its embedded processing products generated 15% of its total revenue. Personal electronics account for only 21% of the total market Texas Instruments sells to. Most of its revenue comes from industrial and automotive markets, which both account for 33% of its total revenue.",
+      "The economic moat for TI is its 300mm wafer. Wafers are basically thin slices of metal that are used to make integrated circuits. 300mm wafers are important because they massively cut down the costs of unpackaged chips, and they have a higher yield than 200mm wafers. This gives TI a comparative advantage over other semiconductor manufacturers. Another advantage of Texas Instruments is that it owns its own fabrication plants. Unlike NVIDIA and AMD, TI doesn’t need to rely on TSMC, which lowers geopolitical risks. TI also has a wide product range. TI offers over 80,000 analog and embedded processing products, which traditional semiconductor companies, such as NVIDIA, Intel or AMD, don’t usually offer.",
+      "Financials and Valuation. TI’s CapEx spending peaked in 2024, with a CapEx margin of 31%. However, it is expected to drop to 11% in 2026 and remain stable thereafter. Analysts also have optimistic expectations for revenue growth, with the base projections being 24%. Although its historical revenue growth was lower compared to its peers, such as NVIDIA, Broadcom, and Micron, TI’s EBITDA margins and net income margins are relatively higher than others.If we look at the trading multiples, TI looks relatively cheaper than other companies.The average analyst price target sits around $340, which implies that TXN is currently 17% undervalued. The trading comps also tell a similar story, saying that it is undervalued. However, TI’s cash flow contradicts this opinion. Despite the currently high risk-free rate, TI seems to be overvalued. With our base case assumption, the model showed that TI is overvalued by 44%. However, this is still a common problem we see with a lot of companies in the tech sector, especially the semiconductor industry.",
+      "Risk factors. The obvious risk is the cyclicality of the semiconductor industry. Another risk is the unexpected CapEx acceleration. If TI chooses to reaccelerate its 300mm equipping to chase data center and AI demand, both CapEx and depreciation margins could increase. Geopolitical risks are another factor to consider. 50% of TI’s revenue came from China last year. Trade regulations, tariffs, sanctions, or even a weakening of the Chinese manufacturing sector could massively affect TI’s revenue.",
+      "In conclusion, Texas Instruments’ share price is inflated by the optimistic views of the semiconductor industry. However, they are still a company worth considering due to its relatively strong financials and stability."
+    ],
+    "author": "Hee-Chan Rho",
+    "pullQuote": "TI doesn’t need to rely on TSMC, which lowers geopolitical risks.",
+    "trending": true,
+    "image": "/images/articles/texas-instruments-the-steady-hand-in-semiconductors.jpg",
+    "references": [
+      {
+        "label": "https://www.ti.com/about-ti/manufacturing/richardson.html",
+        "url": "https://www.ti.com/about-ti/manufacturing/richardson.html"
+      },
+      {
+        "label": "https://www.sec.gov/Archives/edgar/data/97476/000009747626000059/txn-20251231.htm",
+        "url": "https://www.sec.gov/Archives/edgar/data/97476/000009747626000059/txn-20251231.htm"
+      }
+    ]
+  },
+  {
+    "title": "Market overview Sept 21 – Sept 25",
+    "category": "Markets",
+    "date": "2026-09-27",
+    "summary": "Fed raises interest rates, and META’s new AI saves the stock market.",
+    "body": [
+      "This week has been overall decent for the stock market, with SPY rising by 1.27% and VTI rising by 1.16%. On the first two days, we have seen a 2.61% rise in the stock market, which was mainly driven by the tech sector. The main event this week was META’s new AI Muse. The launch of the new agentic AI Muse has also led to a 12% rise in META. It also triggered other semiconductor stocks such as AMD and MU, both going up 12.65% and 6.54%, respectively. However, there have also been victims of this launch. Financial services have fallen 3% this week due to Muse. Muse’s ability to handle personal finance has led to this fall. Although this might seem like an overreaction, the important viewpoint here is that AI will be able to influence other sectors on the stock market.",
+      "However, inflation remains sticky, and bond yields kept on hiking. This week, the U.S. 10 Year Treasury peaked at 5.23%. The Federal Reserve is also aware of current inflation trends and has decided to increase interest rates. There was a 25bps increase from 3.75%, leading to a new interest rate of 4.00%. This has been the first time that the Fed has raised interest rates in 3 years. Since interest rates have increased, the USD will strengthen, and this will make everything priced in USD expensive for foreign countries. Other central banks might also raise interest rates to protect their currency from collapsing. Although there might not be another interest rate raise because, in September, before the Fed’s raise, both the ECB (European Central Bank) and BOJ (Bank of Japan) had already increased interest rates by 25bps. Due to these factors, there is a very high chance that there will be a global economic cooldown happening soon.",
+      "Unemployment has also been a trending topic this week. Initial jobless claims in the US fell to 218,000 this week. This was lower than Wall Street projections, which were 224,000. The Labor Department will release the jobs report for September next week. Analysts from FactSet expect unemployment rates to fall by 10bps due to the new job creation in the market. However, if the job reports show strong job growth, it might negatively affect the stock market due to fears of inflation."
+    ],
+    "author": "Hee-Chan Rho",
+    "pullQuote": "AI will be able to influence other sectors on the stock market.",
+    "trending": true,
+    "image": "/images/articles/market-overview-sept-21-sept-25.jpg",
+    "imageAlt": "A laptop screen displaying the Facebook logo, with a tablet and phone showing similar screens nearby.",
+    "references": [
+      {
+        "label": "https://www.reuters.com/business/wall-street-expects-metas-ai-agent-shape-into-new-revenue-engine-2026-09-22/",
+        "url": "https://www.reuters.com/business/wall-street-expects-metas-ai-agent-shape-into-new-revenue-engine-2026-09-22/"
+      },
+      {
+        "label": "https://www.reuters.com/business/fed-again-hoping-pain-free-landing-current-inflation-spike-2026-09-24/",
+        "url": "https://www.reuters.com/business/fed-again-hoping-pain-free-landing-current-inflation-spike-2026-09-24/"
+      }
+    ]
+  },
+  {
+    "title": "The Nudge Theory: Are You Really Choosing?",
+    "category": "Behavioral Economics",
+    "date": "2026-09-27",
+    "summary": "You think of one.",
+    "body": [
+      "Traditional economics often assumes that, based on the information provided to them, people will make rational decisions. However, behavioral economics explores how our decisions are actually influenced by habits, emotions, biases, and the way choices are presented. Nudge theory explores this idea by showing that small changes to the way something is presented can affect behavioral choices without actually restricting them.",
+      "People may not make rational choices due to imperfect information and bounded rationality, meaning people have limited time, information, and ability to process complex choices, often relying on shortcuts. Bounded self-control also means that we may choose short-term benefits over what is better for us in the long term. These ideas help explain why nudges can be effective.",
+      "Nudges influence decisions by changing the way choices are organized and presented — the choice architecture. One of the most common examples is the default choice: if a person does nothing, the default choice is the option that automatically takes effect. People often stick with it because changing it requires effort, and may accept the option already provided. This is sometimes illustrated by the idea “don’t let Homer do nothing”: if Homer does nothing, the default choice will determine the outcome.",
+      "You might actually see default choices in your everyday life; a subscription service may automatically renew unless you decide to cancel, or a website might automatically subscribe you to a newsletter unless you tick a box. Default choices are also used in public policy. In organ donation, people are automatically considered donors unless they opt out, since many people can’t be bothered to sign up. In all cases, you have a choice, but the default choice just makes one more likely.",
+      "Nudges also take advantage of loss aversion, the idea that people feel significantly more pain from losing something than pleasure from gaining something of equal value. For example, “don’t lose $20 by leaving your basket” may be more influential than “save $20 by completing your purchase.” The choice didn’t change, but the way it was presented did.",
+      "Other behavioral biases may also support nudges. Anchoring is when a person making a choice is influenced, or “anchored,” by an initial piece of information they received. Framing is when people respond differently based on how the same information is presented, similar to the earlier loss-aversion example.",
+      "However, nudges raise ethical questions. A good nudge should be easy to resist and should not deliberately deceive people. There is a difference between making a beneficial choice easier and manipulating people into doing something that mainly benefits a company. For example, automatically enrolling someone in a pension can encourage saving, while making a subscription difficult to cancel exploits the same behavioral tendency for profit.",
+      "Overall, nudge theory shows that the way choices are presented can influence what we choose. By understanding how people think and behave, governments and businesses can encourage certain decisions while still allowing people to choose for themselves. But if our choices can be influenced so easily, how free are our decisions really?"
+    ],
+    "author": "Keiden Yamamoto",
+    "pullQuote": "We may think we’re making our own choices, but sometimes the way a choice is presented makes the decision for us.",
+    "image": "/images/articles/the-nudge-theory-are-you-really-choosing.jpg",
+    "imageAlt": "A child sitting on a wooden floor, sorting coins into a jar.",
+    "references": [
+      {
+        "label": "https://www.britannica.com/money/Richard-Thaler",
+        "url": "https://www.britannica.com/money/Richard-Thaler"
+      },
+      {
+        "label": "https://thedecisionlab.com/reference-guide/psychology/nudge-theory",
+        "url": "https://thedecisionlab.com/reference-guide/psychology/nudge-theory"
+      },
+      {
+        "label": "https://www.cambridge.org/core/journals/american-political-science-review/article/power-to-nudge/F0BD18EC604A63796B6BCC7F6467F95B",
+        "url": "https://www.cambridge.org/core/journals/american-political-science-review/article/power-to-nudge/F0BD18EC604A63796B6BCC7F6467F95B"
+      }
+    ]
+  }
+]
