@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Warsaw High Financial Times</title>
+<meta name="robots" content="noindex">
+<script>
+  // The site used to live in this single file, with articles and authors
+  // addressed by #article/<slug> and #author/<slug>. Send those old shared
+  // links to the matching page of the new site.
+  (function () {
+    var m = location.hash.match(/^#(article|author)\/(.+)$/);
+    var target = m ? (m[1] === 'article' ? 'articles/' : 'authors/') + m[2] + '/' : './';
+    location.replace(target);
+  })();
+</script>
+</head>
+<body><p><a href="./">Continue to The Warsaw High Financial Times</a></p></body>
+</html>
