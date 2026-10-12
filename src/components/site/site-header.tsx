@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MARKET_DATA, formatPct } from "@/lib/articles";
-import { SITE_TITLE } from "@/lib/site";
+import { CompactHeader, MastheadTitle } from "./masthead";
 import { SiteNav } from "./site-nav";
 import { UtilityBar } from "./utility-bar";
 
@@ -29,7 +29,7 @@ export function SiteHeader() {
     <>
       <Link href="/markets/" className="ticker-tape" aria-label="View full markets data">
         <span className="ticker-label">Markets · 1-Year</span>
-        <div className="ticker-scroll">
+        <div className="ticker-scroll ticker-fade">
           {/* A fixed pace per item, so the tape doesn't race with 50 of them. */}
           <div className="ticker-track" style={{ animationDuration: `${MARKET_DATA.length * 2}s` }}>
             <TickerItems />
@@ -40,15 +40,10 @@ export function SiteHeader() {
 
       <UtilityBar />
 
-      <header className="site-header">
-        <div className="site-header-inner">
-          <Link href="/" className="site-title">
-            {SITE_TITLE}
-          </Link>
-        </div>
-      </header>
+      <MastheadTitle />
 
       <SiteNav />
+      <CompactHeader />
     </>
   );
 }

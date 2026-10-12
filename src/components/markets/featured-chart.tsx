@@ -7,6 +7,7 @@ import { Grid } from "@/components/charts/grid";
 import { ChartTooltip } from "@/components/charts/tooltip";
 import { XAxis } from "@/components/charts/x-axis";
 import { YAxis } from "@/components/charts/y-axis";
+import { useIsNarrow } from "@/hooks/use-mounted";
 import { MARKET, formatPct, formatPrice } from "@/lib/articles";
 import type { Instrument } from "@/lib/types";
 
@@ -25,6 +26,7 @@ export function FeaturedChart({ instrument: m }: { instrument: Instrument }) {
   const up = m.change1Y >= 0;
   const color = up ? "var(--up)" : "var(--down)";
   const data = useMemo(() => toSeries(m), [m]);
+  const narrow = useIsNarrow();
 
   return (
     <div className="featured-chart" id="featured">
@@ -54,7 +56,7 @@ export function FeaturedChart({ instrument: m }: { instrument: Instrument }) {
             <Grid strokeDasharray="3,4" />
             <Area dataKey="price" fill={color} stroke={color} fillOpacity={0.22} strokeWidth={2.2} />
             <YAxis numTicks={4} formatValue={(v) => formatPrice(v)} />
-            <XAxis numTicks={5} />
+            <XAxis numTicks={narrow ? 3 : 5} />
             <ChartTooltip
               rows={(point) => [{ color, label: m.symbol, value: formatPrice(point.price as number) }]}
             />

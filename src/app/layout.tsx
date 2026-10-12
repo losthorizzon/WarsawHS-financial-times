@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
+import { MotionProviders } from "@/components/motion/providers";
 import { BackToTop } from "@/components/site/back-to-top";
 import { KeyboardShortcuts } from "@/components/site/keyboard-shortcuts";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { SITE_TAGLINE, SITE_TITLE } from "@/lib/site";
 import "./globals.css";
+import "./refresh.css";
 
 const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
@@ -39,18 +41,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${sourceSerif.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Entrance animations start from opacity 0; without JavaScript
+            they'd never run, so show everything as-is instead. */}
+        <noscript>
+          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
       </head>
       <body>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main className="page" id="main-content" tabIndex={-1}>
-          {children}
-        </main>
-        <SiteFooter />
-        <BackToTop />
-        <KeyboardShortcuts />
+        <MotionProviders>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <SiteHeader />
+          <main className="page" id="main-content" tabIndex={-1}>
+            {children}
+          </main>
+          <SiteFooter />
+          <BackToTop />
+          <KeyboardShortcuts />
+        </MotionProviders>
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NAV = [
+export const NAV = [
   { href: "/", label: "Articles", match: (p: string) => p === "/" || p.startsWith("/articles") || p.startsWith("/authors") },
   { href: "/markets/", label: "Markets", match: (p: string) => p.startsWith("/markets") },
   { href: "/glossary/", label: "Glossary", match: (p: string) => p.startsWith("/glossary") },

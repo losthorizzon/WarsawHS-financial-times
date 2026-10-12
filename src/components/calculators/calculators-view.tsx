@@ -1,21 +1,37 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import NumberFlow from "@number-flow/react";
 import { useState } from "react";
+import { Area, AreaChart } from "@/components/charts/area-chart";
+import { Grid } from "@/components/charts/grid";
+import { ChartTooltip } from "@/components/charts/tooltip";
+import { YAxis } from "@/components/charts/y-axis";
+import { useMounted } from "@/hooks/use-mounted";
 
 // Each calculator is data: its inputs, a compute() that returns the
 // result rows (or null while an input is empty or invalid), and a note.
 // Plain maths in the visitor's browser; nothing to keep up to date.
-type Row = [label: string, value: string, secondary?: boolean];
+// Values stay numbers (not pre-formatted text) so they can roll smoothly
+// from one result to the next as the inputs change.
+type Row = [label: string, value: number, kind: "money" | "percent", secondary?: boolean];
 interface Calculator {
   title: string;
   blurb: string;
   inputs: { id: string; label: string; value: number; step: number }[];
   compute: (v: Record<string, number>) => Row[] | null;
+  /** Optional year-by-year series for a growth chart under the results. */
+  series?: (v: Record<string, number>) => { year: number; balance: number; paidIn: number }[];
   note: string;
 }
 
-const money = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const MONEY = { maximumFractionDigits: 0 } as const;
+const PERCENT = { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1 } as const;
+
+function compoundBalance(start: number, monthly: number, rate: number, months: number) {
+  const r = rate / 100 / 12;
+  const growth = r === 0 ? 1 : Math.pow(1 + r, months);
+  return start * growth + monthly * (r === 0 ? months : (growth - 1) / r);
+}
 
 const CALCULATORS: Calculator[] = [
   {
@@ -28,17 +44,21 @@ const CALCULATORS: Calculator[] = [
       { id: "years", label: "Years", value: 20, step: 1 },
     ],
     compute: (v) => {
-      const n = v.years * 12,
-        r = v.rate / 100 / 12;
-      const growth = r === 0 ? 1 : Math.pow(1 + r, n);
-      const final = v.start * growth + v.monthly * (r === 0 ? n : (growth - 1) / r);
+      const n = v.years * 12;
+      const final = compoundBalance(v.start, v.monthly, v.rate, n);
       const paidIn = v.start + v.monthly * n;
       return [
-        ["Balance after " + v.years + " years", money(final)],
-        ["You paid in", money(paidIn), true],
-        ["Growth from returns", money(final - paidIn), true],
+        ["Balance after " + v.years + " years", final, "money"],
+        ["You paid in", paidIn, "money", true],
+        ["Growth from returns", final - paidIn, "money", true],
       ];
     },
+    series: (v) =>
+      Array.from({ length: Math.min(60, Math.floor(v.years)) + 1 }, (_, y) => ({
+        year: y,
+        balance: compoundBalance(v.start, v.monthly, v.rate, y * 12),
+        paidIn: v.start + v.monthly * y * 12,
+      })),
     note: "Returns are assumed steady and compounded monthly. Real markets rise and fall, so treat this as an illustration, not a forecast.",
   },
   {
@@ -52,9 +72,9 @@ const CALCULATORS: Calculator[] = [
     compute: (v) => {
       const f = Math.pow(1 + v.infl / 100, v.years);
       return [
-        ["Buying power of that amount in " + v.years + " years", money(v.amount / f)],
-        ["Same basket would cost", money(v.amount * f), true],
-        ["Buying power lost", (100 - 100 / f).toFixed(1) + "%", true],
+        ["Buying power of that amount in " + v.years + " years", v.amount / f, "money"],
+        ["Same basket would cost", v.amount * f, "money", true],
+        ["Buying power lost", 1 - 1 / f, "percent", true],
       ];
     },
     note: "Assumes prices rise at one constant rate. Actual inflation varies from year to year.",
@@ -73,9 +93,9 @@ const CALCULATORS: Calculator[] = [
       if (n <= 0) return null;
       const pay = r === 0 ? v.principal / n : (v.principal * r) / (1 - Math.pow(1 + r, -n));
       return [
-        ["Monthly payment", money(pay)],
-        ["Total repaid", money(pay * n), true],
-        ["Total interest", money(pay * n - v.principal), true],
+        ["Monthly payment", pay, "money"],
+        ["Total repaid", pay * n, "money", true],
+        ["Total interest", pay * n - v.principal, "money", true],
       ];
     },
     note: "Standard equal-payment loan. Fees, insurance and variable rates are not included.",
@@ -121,21 +141,12 @@ function CalculatorCard({ calc }: { calc: Calculator }) {
         </div>
         <div className="calc-results" aria-live="polite">
           {out ? (
-            out.map(([label, value, secondary]) => (
-              <div key={label}>
+            out.map(([label, value, kind, secondary], i) => (
+              <div key={i}>
                 <p className="calc-result-label">{label}</p>
-                <AnimatePresence mode="popLayout" initial={false}>
-                  <motion.p
-                    key={value}
-                    className={`calc-result-value${secondary ? " is-secondary" : ""}`}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.18 }}
-                  >
-                    {value}
-                  </motion.p>
-                </AnimatePresence>
+                <p className={`calc-result-value${secondary ? " is-secondary" : ""}`}>
+                  <NumberFlow locales="en-US" value={value} format={kind === "money" ? MONEY : PERCENT} />
+                </p>
               </div>
             ))
           ) : (
@@ -143,7 +154,48 @@ function CalculatorCard({ calc }: { calc: Calculator }) {
           )}
         </div>
       </div>
+      {calc.series && valid && <GrowthChart data={calc.series(nums)} />}
       <p className="calc-note">{calc.note}</p>
+    </div>
+  );
+}
+
+// BKLit UI area chart: what was paid in vs. what the balance grew to.
+// Drawn in the browser only — the x-axis is real calendar years from now.
+function GrowthChart({ data }: { data: { year: number; balance: number; paidIn: number }[] }) {
+  const mounted = useMounted();
+  if (!mounted || data.length < 2) return null;
+  const thisYear = new Date().getFullYear();
+  const points = data.map((d) => ({ ...d, date: new Date(thisYear + d.year, 0, 1) }));
+  const fmt = (v: number) => Math.round(v).toLocaleString("en-US");
+  return (
+    <div className="calc-chart">
+      <div className="calc-chart-plot">
+        <AreaChart data={points} aspectRatio={undefined} margin={{ top: 12, right: 8, bottom: 8, left: 64 }} className="h-full w-full">
+          <Grid strokeDasharray="3,4" />
+          <Area dataKey="balance" fill="var(--brass)" stroke="var(--brass)" fillOpacity={0.28} strokeWidth={2.2} />
+          <Area dataKey="paidIn" fill="var(--navy)" stroke="var(--accent)" fillOpacity={0.18} strokeWidth={1.6} />
+          <YAxis numTicks={4} formatValue={fmt} />
+          <ChartTooltip
+            showDatePill={false}
+            rows={(p) => [
+              { color: "var(--ink-faint)", label: "Year", value: p.year === 0 ? "Today" : `${p.year}` },
+              { color: "var(--brass)", label: "Balance", value: fmt(p.balance as number) },
+              { color: "var(--accent)", label: "Paid in", value: fmt(p.paidIn as number) },
+            ]}
+          />
+        </AreaChart>
+      </div>
+      {/* The time axis is "years from now", so it is labelled in words
+          rather than with calendar dates. */}
+      <p className="calc-axis">
+        <span>Today</span>
+        <span>{data.length - 1} years</span>
+      </p>
+      <p className="calc-legend">
+        <span style={{ color: "var(--brass)" }}>Balance</span>
+        <span style={{ color: "var(--accent)" }}>What you paid in</span>
+      </p>
     </div>
   );
 }

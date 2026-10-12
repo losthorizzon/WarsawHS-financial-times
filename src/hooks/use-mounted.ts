@@ -24,3 +24,18 @@ export function useQueryParam(name: string) {
     () => ""
   );
 }
+
+const NARROW_QUERY = "(max-width: 600px)";
+
+/** True on phone-width screens (false on the server); follows window resizes. */
+export function useIsNarrow() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(NARROW_QUERY);
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(NARROW_QUERY).matches,
+    () => false
+  );
+}

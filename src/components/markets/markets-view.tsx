@@ -2,10 +2,12 @@
 
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+import { FilterPills } from "@/components/site/filter-pills";
 import { useQueryParam } from "@/hooks/use-mounted";
 import { MARKET_DATA, formatPct, formatPrice } from "@/lib/articles";
 import type { Instrument } from "@/lib/types";
 import { FeaturedChart } from "./featured-chart";
+import { MarketStats, MovesChart } from "./market-highlights";
 import { Sparkline } from "./sparkline";
 
 // "group" keeps the tables grouped by asset type; "best" / "worst" flatten
@@ -75,11 +77,12 @@ export function MarketsView() {
     if (requested) document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [requested]);
 
-  const select = (s: string) => {
+  const select = (s: string, scroll = false) => {
     setSymbol(s);
     const url = new URL(window.location.href);
     url.searchParams.set("symbol", s);
     window.history.replaceState(null, "", url);
+    if (scroll) document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const featured = MARKET_DATA.find((m) => m.symbol === symbol) ?? MARKET_DATA[0];
@@ -88,21 +91,19 @@ export function MarketsView() {
 
   return (
     <>
-      <div className="markets-sortbar" role="group" aria-label="Sort markets">
-        {SORTS.map(([key, label]) => (
-          <button
-            key={key}
-            type="button"
-            className={`cat-btn${key === sort ? " is-active" : ""}`}
-            aria-pressed={key === sort}
-            onClick={() => setSort(key)}
-          >
-            {label}
-          </button>
-        ))}
+      <MarketStats onSelect={(s) => select(s, true)} />
+      <div className="markets-sortbar">
+        <FilterPills
+          id="markets-sort"
+          label="Sort markets"
+          value={sort}
+          onChange={(k) => setSort(k as Sort)}
+          options={SORTS.map(([key, label]) => ({ key, label }))}
+        />
       </div>
 
       <FeaturedChart instrument={featured} />
+      <MovesChart />
 
       <motion.div key={sort} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }}>
         {sort === "group" ? (
